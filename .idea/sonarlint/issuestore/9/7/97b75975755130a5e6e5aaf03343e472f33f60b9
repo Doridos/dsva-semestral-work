@@ -1,34 +1,34 @@
 
 W
-java:S1141n"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8ÔÙ²ÇÈ1
-m	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áûËŞ8ÔÙ²ÇÈ1
+java:S1141t"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8»÷§–Ê1
+l	java:S117 "QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Éï8¼÷§–Ê1
 J
-java:S5411\"(Use a primitive boolean expression here.(¦ë°éüÿÿÿÿ8ÔÙ²ÇÈ1
+java:S5411b"(Use a primitive boolean expression here.(¦ë°éüÿÿÿÿ8¼÷§–Ê1
 F
-java:S5411‡"(Use a primitive boolean expression here.(‹Ùÿ³8ÔÙ²ÇÈ1
+java:S5411"(Use a primitive boolean expression here.(‹Ùÿ³8½÷§–Ê1
 f
-java:S2259t"DA "NullPointerException" could be thrown; "action" is nullable here.(¸â¸ıúÿÿÿÿ8´œ‚ÈÈ1
-n
-java:S2095~"LUse try-with-resources or close this "BufferedWriter" in a "finally" clause.(…¿Å“şÿÿÿÿ8´œ‚ÈÈ1
-x	java:S116"WRename this field "MEMBER_COUNT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò«ç÷ÿÿÿÿÿ8´œ‚ÈÈ1
-p	java:S116"ORename this field "MyRq" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğ½‹€ùÿÿÿÿ8ÃÛ²ÇÈ1
-q	java:S116"PRename this field "MaxRq" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÕÔ”öøÿÿÿÿ8ÃÛ²ÇÈ1
-q	java:S116"PRename this field "RpCnt" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸŸ¦Èÿÿÿÿÿ8ÃÛ²ÇÈ1
-i	java:S116"MRename this field "ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾ëé¢8ÃÛ²ÇÈ1
-o	java:S116"NRename this field "Req" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡Äà—ûÿÿÿÿ8ÃÛ²ÇÈ1
-C
-java:S1170"!Make this final field static too.(ò«ç÷ÿÿÿÿÿ8µœ‚ÈÈ1
-‘
-java:S1130"tRemove the declaration of thrown exception 'javax.jms.JMSException', as it cannot be thrown from constructor's body.(áûËŞ8ÇÛ²ÇÈ1
+java:S2259z"DA "NullPointerException" could be thrown; "action" is nullable here.(¸â¸ıúÿÿÿÿ8‘¢È–Ê1
 o
-java:S3776-"RRefactor this method to reduce its Cognitive Complexity from 53 to the 15 allowed.(“–ış8ÈÛ²ÇÈ1
+java:S2095„"LUse try-with-resources or close this "BufferedWriter" in a "finally" clause.(…¿Å“şÿÿÿÿ8‘¢È–Ê1
+x	java:S116"WRename this field "MEMBER_COUNT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò«ç÷ÿÿÿÿÿ8”ù§–Ê1
+p	java:S116"ORename this field "MyRq" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğ½‹€ùÿÿÿÿ8”ù§–Ê1
+q	java:S116"PRename this field "MaxRq" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÕÔ”öøÿÿÿÿ8”ù§–Ê1
+q	java:S116"PRename this field "RpCnt" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸŸ¦Èÿÿÿÿÿ8”ù§–Ê1
+i	java:S116"MRename this field "ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾ëé¢8”ù§–Ê1
+o	java:S116"NRename this field "Req" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡Äà—ûÿÿÿÿ8”ù§–Ê1
+C
+java:S1170"!Make this final field static too.(ò«ç÷ÿÿÿÿÿ8•ù§–Ê1
+o
+java:S37763"RRefactor this method to reduce its Cognitive Complexity from 53 to the 15 allowed.(“–ış8ù§–Ê1
 m
-java:S62017"KReplace this instanceof check and cast with 'instanceof TextMessage txtMsg'( ÎÃøÿÿÿÿ8ÊÛ²ÇÈ1
-G	java:S106:"+Replace this use of System.out by a logger.(å±ÍÃ8ËÛ²ÇÈ1
-L	java:S106F"+Replace this use of System.out by a logger.(Û®òšşÿÿÿÿ8ËÛ²ÇÈ1
-L	java:S106v"+Replace this use of System.out by a logger.(éìÂúûÿÿÿÿ8ÎÛ²ÇÈ1
-L	java:S106z"+Replace this use of System.out by a logger.(Ï¿€¢ıÿÿÿÿ8ÿğŞÇÈ1
+java:S6201="KReplace this instanceof check and cast with 'instanceof TextMessage txtMsg'( ÎÃøÿÿÿÿ8 ù§–Ê1
+L	java:S106@"+Replace this use of System.out by a logger.(“´‡ÿûÿÿÿÿ8 ù§–Ê1
+L	java:S106L"+Replace this use of System.out by a logger.(Û®òšşÿÿÿÿ8¢ù§–Ê1
+L	java:S106|"+Replace this use of System.out by a logger.(éìÂúûÿÿÿÿ8¦ù§–Ê1
+M	java:S106€"+Replace this use of System.out by a logger.(Ï¿€¢ıÿÿÿÿ8¦ù§–Ê1
+h
+java:S1128"FRemove this unused import 'com.sun.messaging.ConnectionConfiguration'.(ñıÙóøÿÿÿÿ8¢È–Ê1
 E
-java:S1068"(Remove this unused "name" private field.(Ú§×œ8¿œ‚ÈÈ1
+java:S1068"(Remove this unused "name" private field.(Ë¥¼8¨ù§–Ê1
 ã
-java:S6541-"ÅA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 88 to 64, Complexity from 21 to 14, Nesting Level from 6 to 2, Number of Variables from 17 to 6.(“–ış8ĞÛ²ÇÈ1
+java:S65413"ÅA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 88 to 64, Complexity from 21 to 14, Nesting Level from 6 to 2, Number of Variables from 17 to 6.(“–ış8¨ù§–Ê1

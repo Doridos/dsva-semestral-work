@@ -10,12 +10,12 @@ java:S2696+"6Make the enclosing method "static" or remove this set.(ºá„V8Í«óñ 1
 G	java:S1063"+Replace this use of System.out by a logger.(˚¡°ı8Í«óñ 1
 ]	java:S125E"<This block of commented-out lines of code should be removed.(Ò•˘ö¯ˇˇˇˇ8Î«óñ 1
 O
-java:S1128"3Remove this unused import 'java.io.BufferedWriter'.(¨ı∫/8Î«óñ 1
+java:S1128"3Remove this unused import 'java.io.BufferedWriter'.(¨ı∫/8˘Á√ñ 1
 Q
-java:S1128"/Remove this unused import 'java.io.FileWriter'.(√ë≈√˝ˇˇˇˇ8Î«óñ 1
+java:S1128"/Remove this unused import 'java.io.FileWriter'.(√ë≈√˝ˇˇˇˇ8˙Á√ñ 1
 R
-java:S1128"0Remove this unused import 'java.io.IOException'.(™∫ª⁄˝ˇˇˇˇ8Î«óñ 1
+java:S1128"0Remove this unused import 'java.io.IOException'.(™∫ª⁄˝ˇˇˇˇ8˙Á√ñ 1
 M
-java:S1128"0Remove this unused import 'java.util.ArrayList'.(˜âÓÉ8Î«óñ 1
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(˜âÓÉ8˙Á√ñ 1
 M
-java:S1128"+Remove this unused import 'java.util.List'.(’Î±ƒ¯ˇˇˇˇ8Ï«óñ 1
+java:S1128"+Remove this unused import 'java.util.List'.(’Î±ƒ¯ˇˇˇˇ8˙Á√ñ 1

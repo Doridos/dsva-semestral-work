@@ -1,5 +1,7 @@
 package cz.cvut.fel.dsva;
 
+import com.sun.messaging.ConnectionConfiguration;
+
 import javax.jms.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -7,16 +9,16 @@ import java.util.List;
 import java.util.Objects;
 
 class TopicReceiverThread implements Runnable {
-    private final MessageConsumer consumer;
-    private final MessageConsumer queueConsumer;
-    private final String name;
+    private  MessageConsumer consumer;
+    private MessageConsumer instructionConsumer;
+    private String name;
     private final Integer MEMBER_COUNT = 2;
 
-    private final ConnectionFactory myConnFactory = new com.sun.messaging.ConnectionFactory();
-    private final Connection myConn = myConnFactory.createConnection();
-    private final Session topicSession = myConn.createSession(false, Session.AUTO_ACKNOWLEDGE);
-    private final Destination topic = topicSession.createTopic("GlobalTopic");
-    private final MessageProducer topicProducer = topicSession.createProducer(topic);
+    private ConnectionFactory myConnFactory;
+    private Connection myConn;
+    private Session topicSession;
+    private Destination topic;
+    private MessageProducer topicProducer;
 
     Integer MyRq;
     Integer MaxRq;
@@ -27,10 +29,14 @@ class TopicReceiverThread implements Runnable {
 
     boolean free = true;
 
-    public TopicReceiverThread(MessageConsumer consumer, MessageConsumer queueConsumer, String name, Integer ID) throws JMSException {
-
+    public TopicReceiverThread(ConnectionFactory connectionFactory, MessageConsumer consumer, MessageConsumer instructionConsumer, String name, Integer ID) throws JMSException {
+        this.myConnFactory = connectionFactory;
+        this.myConn = myConnFactory.createConnection();
+        this.topicSession = myConn.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        this.topic = topicSession.createTopic("GlobalTopic");
+        this.topicProducer = topicSession.createProducer(topic);
         this.consumer = consumer;
-        this.queueConsumer = queueConsumer;
+        this.instructionConsumer = instructionConsumer;
         this.name = name;
         this.MaxRq = 0;
         this.MyRq = 0;
@@ -51,11 +57,11 @@ class TopicReceiverThread implements Runnable {
                 String[] parts = new String[0];
 
                 if (action == null){
-                    message = queueConsumer.receive(1000);
+                    message = instructionConsumer.receive();
                     if (message instanceof TextMessage) {
                         TextMessage txtMsg = (TextMessage) message;
                         messageText = txtMsg.getText();
-                        System.out.println("Consumed message from queue" + messageText +"&& set action");
+                        System.out.println("Consumed message from instructionTopic" + messageText +"&& set action");
 
                         parts = messageText.split("\\|");
                         action = parts[1];

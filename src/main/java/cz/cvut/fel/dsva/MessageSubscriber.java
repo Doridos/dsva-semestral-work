@@ -34,27 +34,28 @@ public class MessageSubscriber {
 				Connection myConn = connectionFactory.createConnection();
 
 				// Create a session within the connection.
-				Session queueSession = myConn.createSession(false, Session.AUTO_ACKNOWLEDGE);
+				Session instructionSession = myConn.createSession(false, Session.AUTO_ACKNOWLEDGE);
 				Session topicSession = myConn.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
 
 				// Instantiate a JMS Queue Destination
 				// This statement can be eliminated if JNDI is used.
-				Destination myQueue = queueSession.createQueue("QueueOfMessages");
+				Destination topicOfInstructions = instructionSession.createTopic("TopicOfInstructions");
 				Destination topic = topicSession.createTopic("GlobalTopic");
 
 
 				// #### Client ####
 				// Create a message consumer.
-				MessageConsumer queueConsumer = queueSession.createConsumer(myQueue);
+				MessageConsumer instructionConsumer = instructionSession.createConsumer(topicOfInstructions);
 				MessageConsumer topicConsumer = topicSession.createConsumer(topic);
 
 
 				// Start the Connection.
 				myConn.start();
+				connected = true;
 
 //			Thread queueThread = new Thread(new MessageReceiverThread(queueConsumer, "QueueConsumer", ID));
-				Thread topicThread = new Thread(new TopicReceiverThread(topicConsumer, queueConsumer, "TopicConsumer", ID));
+				Thread topicThread = new Thread(new TopicReceiverThread(connectionFactory, topicConsumer, instructionConsumer, "TopicConsumer", ID));
 
 //			queueThread.start();
 				topicThread.start();

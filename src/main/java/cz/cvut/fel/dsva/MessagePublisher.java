@@ -25,7 +25,7 @@ public class MessagePublisher {
 			while (!connected) {
 
 				ConnectionFactory myConnFactory;
-				Queue myQueue;
+				Topic myTopic;
 				Random rnd = new Random();
 
 				// #### administered object ####
@@ -41,13 +41,13 @@ public class MessagePublisher {
 
 				// Instantiate a JMS Queue Destination
 				// This statement can be eliminated if JNDI is used.
-				myQueue = new com.sun.messaging.Queue("QueueOfMessages");
+				myTopic = mySess.createTopic("TopicOfInstructions");
 				Destination topic = mySess.createTopic("GlobalTopic");
 				MessageProducer topicProducer = mySess.createProducer(topic);
 
 				// #### Client ####
 				// Create a message producer.
-				MessageProducer myMsgProducer = mySess.createProducer(myQueue);
+				MessageProducer myMsgProducer = mySess.createProducer(myTopic);
 
 				// Create and send a message to the queue.
 				for (int i = 0; i < numOfMessages; i++) {
@@ -65,6 +65,7 @@ public class MessagePublisher {
 //				topicProducer.send(myTextMsg);
 
 				}
+				connected = true;
 
 
 				// Close the session and connection resources.
