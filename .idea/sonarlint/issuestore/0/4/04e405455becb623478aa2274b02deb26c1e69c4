@@ -1,0 +1,21 @@
+
+m	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(û°–ç8ÜÇ—–Ê1
+s	java:S116"WRename this field "IDofThisNode" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Çü¼å8äÇ—–Ê1
+‘
+java:S1130"tRemove the declaration of thrown exception 'javax.jms.JMSException', as it cannot be thrown from constructor's body.(û°–ç8Á¤›–Ê1
+m
+java:S6201*"KReplace this instanceof check and cast with 'instanceof TextMessage txtMsg'( ÎÃøÿÿÿÿ8éÇ—–Ê1
+R
+java:S2696+"6Make the enclosing method "static" or remove this set.(¼‡ãV8êÇ—–Ê1
+G	java:S1063"+Replace this use of System.out by a logger.(ûÁ¡õ8êÇ—–Ê1
+]	java:S125E"<This block of commented-out lines of code should be removed.(ñ¥ùšøÿÿÿÿ8ëÇ—–Ê1
+O
+java:S1128"3Remove this unused import 'java.io.BufferedWriter'.(¬õº/8ëÇ—–Ê1
+Q
+java:S1128"/Remove this unused import 'java.io.FileWriter'.(Ã‘ÅÃıÿÿÿÿ8ëÇ—–Ê1
+R
+java:S1128"0Remove this unused import 'java.io.IOException'.(ªº»Úıÿÿÿÿ8ëÇ—–Ê1
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8ëÇ—–Ê1
+M
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8ìÇ—–Ê1

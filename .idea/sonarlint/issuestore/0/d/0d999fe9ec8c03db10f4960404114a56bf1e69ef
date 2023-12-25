@@ -1,0 +1,15 @@
+
+e
+java:S3973"HUse indentation to denote the code conditionally executed by this "for".(≠πñè8∫Œ∆†»1
+{
+java:S2142 "^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(‰†πÄ8øŒ∆†»1
+F	java:S106$"+Replace this use of System.out by a logger.(ºÄÃt8øŒ∆†»1
+]	java:S125("<This block of commented-out lines of code should be removed.(ªûùï˚ˇˇˇˇ8¿Œ∆†»1
+O
+java:S1128"3Remove this unused import 'java.io.BufferedWriter'.(¨ı∫/8¿Œ∆†»1
+Q
+java:S1128"/Remove this unused import 'java.io.FileWriter'.(√ë≈√˝ˇˇˇˇ8¿Œ∆†»1
+R
+java:S1128"0Remove this unused import 'java.io.IOException'.(™∫ª⁄˝ˇˇˇˇ8¿Œ∆†»1
+b
+java:S1128"ERemove this unused import 'java.util.concurrent.locks.ReentrantLock'.(Ú™è¯8¿Œ∆†»1
