@@ -1,19 +1,15 @@
 
 j
-java:S2095%"HUse try-with-resources or close this "Connection" in a "finally" clause.(½¬ª¶üÿÿÿÿ8öÕ–Ê1
+java:S2095%"HUse try-with-resources or close this "Connection" in a "finally" clause.(½¬ª¶üÿÿÿÿ8î¬È—Ê1
 T
-java:S1854"7Remove this useless assignment to local variable "rnd".(–áÍÈ8ú§Š–Ê1
-^
-java:S1854."ARemove this useless assignment to local variable "topicProducer".(Ž–ì8ƒëÙ–Ê1
+java:S1854"7Remove this useless assignment to local variable "rnd".(–áÍÈ8ð¬È—Ê1
 Y
-java:S1854N"=Remove this useless assignment to local variable "connected".(áÀž8ú§Š–Ê1
-L	java:S106"+Replace this use of System.out by a logger.(´ù¨þÿÿÿÿ8ü§Š–Ê1
-L	java:S106"+Replace this use of System.out by a logger.(ÿ®Õýÿÿÿÿ8ý§Š–Ê1
+java:S1854L"=Remove this useless assignment to local variable "connected".(áÀž8ð¬È—Ê1
+L	java:S106"+Replace this use of System.out by a logger.(´ù¨þÿÿÿÿ8ñ¬È—Ê1
+L	java:S106"+Replace this use of System.out by a logger.(ÿ®Õýÿÿÿÿ8ñ¬È—Ê1
 O
-java:S1481"2Remove this unused "myConnFactory" local variable.(€ß¬Œ8ÐË–Ê1
+java:S1481"2Remove this unused "myConnFactory" local variable.(€ß¬Œ8ò¬È—Ê1
 E
-java:S1481"(Remove this unused "rnd" local variable.(–áÍÈ8ÿ§Š–Ê1
-O
-java:S1481."2Remove this unused "topicProducer" local variable.(Ž–ì8‡ëÙ–Ê1
-F	java:S106>"+Replace this use of System.out by a logger.(¼•Ð8ƒ¨Š–Ê1
-X	java:S125@"<This block of commented-out lines of code should be removed.(œáÈ8„¨Š–Ê1
+java:S1481"(Remove this unused "rnd" local variable.(–áÍÈ8ó¬È—Ê1
+F	java:S106<"+Replace this use of System.out by a logger.(¼•Ð8ô¬È—Ê1
+X	java:S125>"<This block of commented-out lines of code should be removed.(œáÈ8ô¬È—Ê1

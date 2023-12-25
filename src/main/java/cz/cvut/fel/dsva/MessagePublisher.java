@@ -42,8 +42,6 @@ public class MessagePublisher {
 				// Instantiate a JMS Queue Destination
 				// This statement can be eliminated if JNDI is used.
 				myTopic = mySess.createTopic("TopicOfInstructions");
-				Destination topic = mySess.createTopic("GlobalTopic");
-				MessageProducer topicProducer = mySess.createProducer(topic);
 
 				// #### Client ####
 				// Create a message producer.
@@ -54,9 +52,9 @@ public class MessagePublisher {
 
 					TextMessage myTextMsg = mySess.createTextMessage();
 					if (i % 2 == 0) {
-						myTextMsg.setText("Change|Increment|Message from producer-" + producerId);
+						myTextMsg.setText("Change|"+ i +"|alfa|Message from producer-" + producerId);
 					} else {
-						myTextMsg.setText("Change|Decrement|Message from producer-" + producerId);
+						myTextMsg.setText("Change|"+ i +"|beta|Message from producer-" + producerId);
 					}
 
 					System.out.println("Sending Message: " + myTextMsg.getText());

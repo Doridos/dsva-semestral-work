@@ -14,9 +14,7 @@ public class MessageSubscriber {
 		boolean connected = false;
 
 		Integer ID;
-		Random rnd = new Random();
 		if (args.length < 1) {
-
 			ID = 0;
 		} else {
 			ID = Integer.valueOf(args[0]);
@@ -24,7 +22,6 @@ public class MessageSubscriber {
 
 		while (!connected) {
 			try {
-				ConnectionFactory myConnFactory;
 				// #### administered object ####
 				// This statement can be eliminated if JNDI is used.
 				ConnectionFactory connectionFactory = new com.sun.messaging.ConnectionFactory();
@@ -41,21 +38,22 @@ public class MessageSubscriber {
 				// Instantiate a JMS Queue Destination
 				// This statement can be eliminated if JNDI is used.
 				Destination topicOfInstructions = instructionSession.createTopic("TopicOfInstructions");
-				Destination topic = topicSession.createTopic("GlobalTopic");
+				//Topic for communication
+				Destination topicRiAg = topicSession.createTopic("RiAgTopic");
 
 
 				// #### Client ####
 				// Create a message consumer.
 				MessageConsumer instructionConsumer = instructionSession.createConsumer(topicOfInstructions);
-				MessageConsumer topicConsumer = topicSession.createConsumer(topic);
-
+				MessageConsumer topicConsumer = topicSession.createConsumer(topicRiAg);
+				MessageProducer topicProducer = topicSession.createProducer(topicRiAg);
 
 				// Start the Connection.
 				myConn.start();
 				connected = true;
 
 //			Thread queueThread = new Thread(new MessageReceiverThread(queueConsumer, "QueueConsumer", ID));
-				Thread topicThread = new Thread(new TopicReceiverThread(connectionFactory, topicConsumer, instructionConsumer, "TopicConsumer", ID));
+				Thread topicThread = new Thread(new TopicReceiverThread(topicSession, topicProducer, topicConsumer, instructionConsumer, ID));
 
 //			queueThread.start();
 				topicThread.start();
