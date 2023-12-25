@@ -52,9 +52,9 @@ public class MessagePublisher {
 
 					TextMessage myTextMsg = mySess.createTextMessage();
 					if (i % 2 == 0) {
-						myTextMsg.setText("Change|"+ i +"|alfa|Message from producer-" + producerId);
+						myTextMsg.setText("Change|"+ 0 +"|alfa|"+i+"|Message from producer-" + producerId);
 					} else {
-						myTextMsg.setText("Change|"+ i +"|beta|Message from producer-" + producerId);
+						myTextMsg.setText("Change|"+ 0 +"|beta|"+i+"|Message from producer-" + producerId);
 					}
 
 					System.out.println("Sending Message: " + myTextMsg.getText());

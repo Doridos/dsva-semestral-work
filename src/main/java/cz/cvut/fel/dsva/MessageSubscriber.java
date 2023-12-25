@@ -2,15 +2,26 @@ package cz.cvut.fel.dsva;
 
 import com.sun.messaging.ConnectionConfiguration;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import javax.jms.*;
 
 public class MessageSubscriber {
 
+
+
+
 	public static void main(String[] args) {
+		Dictionary<String,String> dataStore = new Hashtable<>();
+		Integer MEMBER_COUNT = 6;
+		Integer MyRq = 0;
+		Integer numberOfOperations = 0;
+		Integer MaxRq = 0;
+		Integer RpCnt = 0;
+		String keyToWrite = null;
+		String valueToStore = null;
+		List<Boolean> Req = new ArrayList<>();
+
 		boolean connected = false;
 
 		Integer ID;
@@ -18,6 +29,10 @@ public class MessageSubscriber {
 			ID = 0;
 		} else {
 			ID = Integer.valueOf(args[0]);
+		}
+
+		for (int i = 0; i < MEMBER_COUNT; i++) {
+			Req.add(false);
 		}
 
 		while (!connected) {
@@ -52,11 +67,94 @@ public class MessageSubscriber {
 				myConn.start();
 				connected = true;
 
-//			Thread queueThread = new Thread(new MessageReceiverThread(queueConsumer, "QueueConsumer", ID));
-				Thread topicThread = new Thread(new TopicReceiverThread(topicSession, topicProducer, topicConsumer, instructionConsumer, ID));
 
-//			queueThread.start();
-				topicThread.start();
+				while (true) {
+					// Receive a message
+					Message message;
+					String messageText;
+					String[] parts = new String[0];
+
+					if (keyToWrite == null){
+						message = instructionConsumer.receiveNoWait();
+						if (message != null) {
+							TextMessage txtMsg = (TextMessage) message;
+							messageText = txtMsg.getText();
+							System.out.println("Consumed message from instructionTopic" + messageText +"&& set action");
+
+							parts = messageText.split("\\|");
+							keyToWrite = parts[1];
+							valueToStore = parts[2];
+						}
+						else {
+							message = topicConsumer.receiveNoWait();
+							if (message != null) {
+								TextMessage txtMsg = (TextMessage) message;
+								messageText = txtMsg.getText();
+								parts = messageText.split("\\|");
+								System.out.println("Received message from topic " + messageText);
+							}
+						}
+					}
+					else {
+						message = topicConsumer.receive();
+						TextMessage txtMsg = (TextMessage) message;
+						messageText = txtMsg.getText();
+						parts = messageText.split("\\|");
+						System.out.println("Received message from topic " + messageText);
+					}
+
+
+					if (message instanceof TextMessage) {
+
+
+						if (parts[0].equals("Change")) {
+							Req.set(ID, true);
+							MyRq = MaxRq + 1;
+							RpCnt = 0;
+
+							TextMessage requestText = topicSession.createTextMessage();
+							requestText.setText("Request|" + MyRq + "|" + ID);
+							topicProducer.send(requestText);
+
+						} else if (parts[0].equals("Request") && !Integer.valueOf(parts[2]).equals(ID)) {
+							MaxRq = MaxRq > Integer.valueOf(parts[1]) ? MaxRq : Integer.valueOf(parts[1]);
+							if(Req.get(ID) && (Integer.valueOf(parts[1]) > MyRq ||(Objects.equals(Integer.valueOf(parts[1]), MyRq) && Integer.valueOf(parts[2]) > ID))){
+								Req.set(Integer.valueOf(parts[2]),true);
+							}
+							else {
+								TextMessage replyText = topicSession.createTextMessage();
+								replyText.setText("Reply|" + Integer.valueOf(parts[2]));
+								System.out.println("Sent Reply due to priority");
+								topicProducer.send(replyText);
+							}
+
+						} else if(parts[0].equals("Reply") && Integer.valueOf(parts[1]).equals(ID)){
+							RpCnt = RpCnt+1;
+						}
+					}
+
+					if (Objects.equals(RpCnt, MEMBER_COUNT-1)) {
+
+
+						dataStore.put(keyToWrite, valueToStore);
+						System.out.println(MyRq + "Wrote to key number: " + keyToWrite + " value of:" + valueToStore);
+						numberOfOperations +=1;
+						keyToWrite = null;
+						RpCnt = 0;
+						Req.set(ID, false);
+						for (int j = 0; j < MEMBER_COUNT; j++) {
+							if(Req.get(j)){
+								Req.set(j, false);
+								TextMessage replyText = topicSession.createTextMessage();
+								replyText.setText("Reply|" + j);
+								topicProducer.send(replyText);
+								System.out.println("Replied after message");
+
+							}
+						}
+					}
+				}
+
 
 			} catch (JMSException e) {
 				e.printStackTrace();

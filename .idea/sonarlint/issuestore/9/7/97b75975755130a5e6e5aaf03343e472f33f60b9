@@ -1,30 +1,30 @@
 
-m	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıÌ·ª8Æ§à˜Ê1
+m	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıÌ·ª8ñˆŸ™Ê1
 E
-java:S5411S"(Use a primitive boolean expression here.( Îæğ8Æ§à˜Ê1
+java:S5411S"(Use a primitive boolean expression here.( Îæğ8òˆŸ™Ê1
 E
-java:S5411k"(Use a primitive boolean expression here.(‹Ùÿ³8Ç§à˜Ê1
-x	java:S116"WRename this field "MEMBER_COUNT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ëãé¥ıÿÿÿÿ8”¨à˜Ê1
-p	java:S116"ORename this field "MyRq" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğ½‹€ùÿÿÿÿ8”¨à˜Ê1
-q	java:S116"PRename this field "MaxRq" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÕÔ”öøÿÿÿÿ8”¨à˜Ê1
-q	java:S116"PRename this field "RpCnt" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸŸ¦Èÿÿÿÿÿ8”¨à˜Ê1
-i	java:S116"MRename this field "ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾ëé¢8”¨à˜Ê1
-o	java:S116"NRename this field "Req" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡Äà—ûÿÿÿÿ8”¨à˜Ê1
+java:S5411k"(Use a primitive boolean expression here.(‹Ùÿ³8òˆŸ™Ê1
+x	java:S116"WRename this field "MEMBER_COUNT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ëãé¥ıÿÿÿÿ8¿‰Ÿ™Ê1
+p	java:S116"ORename this field "MyRq" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğ½‹€ùÿÿÿÿ8¿‰Ÿ™Ê1
+q	java:S116"PRename this field "MaxRq" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÕÔ”öøÿÿÿÿ8¿‰Ÿ™Ê1
+q	java:S116"PRename this field "RpCnt" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸŸ¦Èÿÿÿÿÿ8¿‰Ÿ™Ê1
+i	java:S116"MRename this field "ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾ëé¢8¿‰Ÿ™Ê1
+o	java:S116"NRename this field "Req" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡Äà—ûÿÿÿÿ8¿‰Ÿ™Ê1
 C
-java:S1170"!Make this final field static too.(Ëãé¥ıÿÿÿÿ8”¨à˜Ê1
+java:S1170"!Make this final field static too.(Ëãé¥ıÿÿÿÿ8¿‰Ÿ™Ê1
 x
 java:S1149
-"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(Ä¯¦„ıÿÿÿÿ8•¨à˜Ê1
+"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(Ä¯¦„ıÿÿÿÿ8Á‰Ÿ™Ê1
 ‘
-java:S1130"tRemove the declaration of thrown exception 'javax.jms.JMSException', as it cannot be thrown from constructor's body.(ıÌ·ª8—¨à˜Ê1
+java:S1130"tRemove the declaration of thrown exception 'javax.jms.JMSException', as it cannot be thrown from constructor's body.(ıÌ·ª8Â‰Ÿ™Ê1
 o
-java:S3776("RRefactor this method to reduce its Cognitive Complexity from 38 to the 15 allowed.(“–ış8—¨à˜Ê1
+java:S3776("RRefactor this method to reduce its Cognitive Complexity from 38 to the 15 allowed.(“–ış8Ã‰Ÿ™Ê1
 m
-java:S62012"KReplace this instanceof check and cast with 'instanceof TextMessage txtMsg'( ÎÃøÿÿÿÿ8˜¨à˜Ê1
-L	java:S1065"+Replace this use of System.out by a logger.(“´‡ÿûÿÿÿÿ8˜¨à˜Ê1
-L	java:S106A"+Replace this use of System.out by a logger.(Û®òšşÿÿÿÿ8™¨à˜Ê1
-G	java:S106e"+Replace this use of System.out by a logger.(Ôî»´8š¨à˜Ê1
+java:S62012"KReplace this instanceof check and cast with 'instanceof TextMessage txtMsg'( ÎÃøÿÿÿÿ8Ä‰Ÿ™Ê1
+L	java:S1065"+Replace this use of System.out by a logger.(“´‡ÿûÿÿÿÿ8Ä‰Ÿ™Ê1
+L	java:S106A"+Replace this use of System.out by a logger.(Û®òšşÿÿÿÿ8Ä‰Ÿ™Ê1
+G	java:S106e"+Replace this use of System.out by a logger.(Ôî»´8Æ‰Ÿ™Ê1
 @
-java:S1128"$Remove this unused import 'java.io'.(¬›ãD8ÿæ‘™Ê1
+java:S1128"$Remove this unused import 'java.io'.(¬›ãD8Ç‰Ÿ™Ê1
 ã
-java:S6541("ÅA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 65 to 64, Complexity from 18 to 14, Nesting Level from 5 to 2, Number of Variables from 10 to 6.(“–ış8›¨à˜Ê1
+java:S6541("ÅA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 65 to 64, Complexity from 18 to 14, Nesting Level from 5 to 2, Number of Variables from 10 to 6.(“–ış8Ç‰Ÿ™Ê1
