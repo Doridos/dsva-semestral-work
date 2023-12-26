@@ -1,36 +1,41 @@
 
-l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›ş8Ê©¥¿Ê1
-m	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æÿ‰8Ë©¥¿Ê1
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸŸ¦Èÿÿÿÿÿ8Ë©¥¿Ê1
-D
-java:S5411y"(Use a primitive boolean expression here.( ‘H8Ë©¥¿Ê1
+l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›ş8êÇ¼¿Ê1
+m	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æÿ‰8êÇ¼¿Ê1
+r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸŸ¦Èÿÿÿÿÿ8êÇ¼¿Ê1
+E
+java:S5411‚"(Use a primitive boolean expression here.( ‘H8êÇ¼¿Ê1
 K
-java:S5411"(Use a primitive boolean expression here.(ÏŠ“ñıÿÿÿÿ8Ë©¥¿Ê1
+java:S5411¤"(Use a primitive boolean expression here.(ÏŠ“ñıÿÿÿÿ8ëÇ¼¿Ê1
 k
-java:S3008"NRename this field "Req" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹Ÿ¤ô8£ª¥¿Ê1
+java:S2095Î"HUse try-with-resources or close this "Connection" in a "finally" clause.(½¬ª¶üÿÿÿÿ8¿È¼¿Ê1
+k
+java:S3008"NRename this field "Req" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹Ÿ¤ô8ÀÈ¼¿Ê1
 j
-java:S3008"MRename this field "ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦±ƒ‘8£ª¥¿Ê1
-n
-java:S1450"QRemove the "ID" field and declare it as a local variable in the relevant methods.(¦±ƒ‘8§ª¥¿Ê1
+java:S3008"MRename this field "ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦±ƒ‘8ÀÈ¼¿Ê1
 x
-java:S1149"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(‚ˆ÷¬ıÿÿÿÿ8ªª¥¿Ê1
+java:S1149"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(‚ˆ÷¬ıÿÿÿÿ8ÃÈ¼¿Ê1
 o
-java:S3776"RRefactor this method to reduce its Cognitive Complexity from 71 to the 15 allowed.(Çµí‘8«ª¥¿Ê1
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 76 to the 15 allowed.(Çµí‘8ÅÈ¼¿Ê1
 T
-java:S1481"7Remove this unused "numberOfOperations" local variable.(ñ¨„‚8®ª¥¿Ê1
-L	java:S106T"+Replace this use of System.out by a logger.(“´‡ÿûÿÿÿÿ8°ª¥¿Ê1
-F	java:S106_"+Replace this use of System.out by a logger.(¥ü8±ª¥¿Ê1
-F	java:S106g"+Replace this use of System.out by a logger.(¥ü8±ª¥¿Ê1
-G	java:S106~"+Replace this use of System.out by a logger.( ìÑ‹8³ª¥¿Ê1
-H	java:S106Š"+Replace this use of System.out by a logger.(†ëâİ8´ª¥¿Ê1
-H	java:S106"+Replace this use of System.out by a logger.(éì‡8´ª¥¿Ê1
-H	java:S106—"+Replace this use of System.out by a logger.(Ôî»´8´ª¥¿Ê1
+java:S1481"7Remove this unused "numberOfOperations" local variable.(ñ¨„‚8ÆÈ¼¿Ê1
+L	java:S106U"+Replace this use of System.out by a logger.(“´‡ÿûÿÿÿÿ8ÈÈ¼¿Ê1
+F	java:S106g"+Replace this use of System.out by a logger.(¥ü8ÉÈ¼¿Ê1
+F	java:S106p"+Replace this use of System.out by a logger.(¥ü8ÉÈ¼¿Ê1
+H	java:S106‡"+Replace this use of System.out by a logger.( ìÑ‹8ÊÈ¼¿Ê1
+H	java:S106“"+Replace this use of System.out by a logger.(†ëâİ8ËÈ¼¿Ê1
+H	java:S106˜"+Replace this use of System.out by a logger.(éì‡8ËÈ¼¿Ê1
+H	java:S106"+Replace this use of System.out by a logger.(Ôî»´8ËÈ¼¿Ê1
 W
-java:S2864œ"4Iterate over the "entrySet" instead of the "keySet".(¢´ØÕúÿÿÿÿ8µª¥¿Ê1
+java:S2864£"4Iterate over the "entrySet" instead of the "keySet".(¢´ØÕúÿÿÿÿ8ÌÈ¼¿Ê1
 J
-java:S1125"'Remove the unnecessary boolean literal.(ÏŠ“ñıÿÿÿÿ8µª¥¿Ê1
-M	java:S106¢"+Replace this use of System.out by a logger.(‰ùÒ¼úÿÿÿÿ8µª¥¿Ê1
+java:S1125¤"'Remove the unnecessary boolean literal.(ÏŠ“ñıÿÿÿÿ8ÌÈ¼¿Ê1
+M	java:S106©"+Replace this use of System.out by a logger.(‰ùÒ¼úÿÿÿÿ8ÌÈ¼¿Ê1
+M	java:S106Â"+Replace this use of System.out by a logger.(Å®Ñùÿÿÿÿ8ñ¤Ô¿Ê1
+Y
+java:S2696Æ"6Make the enclosing method "static" or remove this set.(îªºîûÿÿÿÿ8”œÂ¿Ê1
+T
+java:S2696Û"6Make the enclosing method "static" or remove this set.(Î‡†8ô§Ã¿Ê1
 I
-java:S1068",Remove this unused "instance" private field.(ŒÉÿö8¶ª¥¿Ê1
+java:S1068",Remove this unused "instance" private field.(ŒÉÿö8ÎÈ¼¿Ê1
 ä
-java:S6541"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 123 to 64, Complexity from 28 to 14, Nesting Level from 6 to 2, Number of Variables from 32 to 6.(Çµí‘8¶ª¥¿Ê1
+java:S6541"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 128 to 64, Complexity from 29 to 14, Nesting Level from 6 to 2, Number of Variables from 32 to 6.(Çµí‘8ÎÈ¼¿Ê1
