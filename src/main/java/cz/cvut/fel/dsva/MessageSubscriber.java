@@ -8,32 +8,32 @@ import javax.jms.*;
 
 public class MessageSubscriber {
 
-
+	private static MessageSubscriber instance;
+	private static HashMap<String, Boolean> Req = new HashMap<>();
+	private static String ID;
+	private static boolean rebuild = false;
 
 
 	public static void main(String[] args) {
-		Dictionary<String,String> dataStore = new Hashtable<>();
-		Integer MEMBER_COUNT = 6;
+		Dictionary<String, String> dataStore = new Hashtable<>();
 		Integer MyRq = 0;
 		Integer numberOfOperations = 0;
 		Integer MaxRq = 0;
 		Integer RpCnt = 0;
 		String keyToWrite = null;
 		String valueToStore = null;
-		List<Boolean> Req = new ArrayList<>();
+
 
 		boolean connected = false;
 
-		Integer ID;
+
 		if (args.length < 1) {
-			ID = 0;
+			ID = String.valueOf(0);
 		} else {
-			ID = Integer.valueOf(args[0]);
+			ID = args[0];
 		}
 
-		for (int i = 0; i < MEMBER_COUNT; i++) {
-			Req.add(false);
-		}
+		Req.put(String.valueOf(ID), false);
 
 		while (!connected) {
 			try {
@@ -67,25 +67,26 @@ public class MessageSubscriber {
 				myConn.start();
 				connected = true;
 
-
+				TextMessage helloMessage = topicSession.createTextMessage();
+				helloMessage.setText("Start|" + ID);
+				topicProducer.send(helloMessage);
 				while (true) {
 					// Receive a message
 					Message message;
 					String messageText;
 					String[] parts = new String[0];
 
-					if (keyToWrite == null){
+					if (keyToWrite == null) {
 						message = instructionConsumer.receiveNoWait();
 						if (message != null) {
 							TextMessage txtMsg = (TextMessage) message;
 							messageText = txtMsg.getText();
-							System.out.println("Consumed message from instructionTopic" + messageText +"&& set action");
+							System.out.println("Consumed message from instructionTopic" + messageText + "&& set action");
 
 							parts = messageText.split("\\|");
 							keyToWrite = parts[1];
 							valueToStore = parts[2];
-						}
-						else {
+						} else {
 							message = topicConsumer.receiveNoWait();
 							if (message != null) {
 								TextMessage txtMsg = (TextMessage) message;
@@ -94,8 +95,7 @@ public class MessageSubscriber {
 								System.out.println("Received message from topic " + messageText);
 							}
 						}
-					}
-					else {
+					} else {
 						message = topicConsumer.receive();
 						TextMessage txtMsg = (TextMessage) message;
 						messageText = txtMsg.getText();
@@ -108,7 +108,7 @@ public class MessageSubscriber {
 
 
 						if (parts[0].equals("Change")) {
-							Req.set(ID, true);
+							Req.put(ID, true);
 							MyRq = MaxRq + 1;
 							RpCnt = 0;
 
@@ -116,37 +116,48 @@ public class MessageSubscriber {
 							requestText.setText("Request|" + MyRq + "|" + ID);
 							topicProducer.send(requestText);
 
-						} else if (parts[0].equals("Request") && !Integer.valueOf(parts[2]).equals(ID)) {
+						} else if (parts[0].equals("Request") && !parts[2].equals(ID)) {
 							MaxRq = MaxRq > Integer.valueOf(parts[1]) ? MaxRq : Integer.valueOf(parts[1]);
-							if(Req.get(ID) && (Integer.valueOf(parts[1]) > MyRq ||(Objects.equals(Integer.valueOf(parts[1]), MyRq) && Integer.valueOf(parts[2]) > ID))){
-								Req.set(Integer.valueOf(parts[2]),true);
-							}
-							else {
+							if (Req.get(ID) && (Integer.valueOf(parts[1]) > MyRq || (Objects.equals(Integer.valueOf(parts[1]), MyRq) && Integer.valueOf(parts[2]) > Integer.valueOf(ID)))) {
+								Req.put(parts[2], true);
+							} else {
 								TextMessage replyText = topicSession.createTextMessage();
 								replyText.setText("Reply|" + Integer.valueOf(parts[2]));
 								System.out.println("Sent Reply due to priority");
 								topicProducer.send(replyText);
 							}
 
-						} else if(parts[0].equals("Reply") && Integer.valueOf(parts[1]).equals(ID)){
-							RpCnt = RpCnt+1;
+						} else if (parts[0].equals("Reply") && parts[1].equals(ID)) {
+							RpCnt = RpCnt + 1;
+						} else if (parts[0].equals("Start") && !parts[1].equals(ID)) {
+							if (!Req.containsKey(parts[1])) {
+								Req.put(parts[1], false);
+								TextMessage replyText = topicSession.createTextMessage();
+								replyText.setText("Confirm|" + ID);
+								topicProducer.send(replyText);
+								System.out.println("I confirmed");
+							}
+
+						} else if (parts[0].equals("Confirm") && !parts[1].equals(ID)) {
+							Req.put(parts[1], false);
+							System.out.println(Req.size());
 						}
 					}
 
-					if (Objects.equals(RpCnt, MEMBER_COUNT-1)) {
+					if (Objects.equals(RpCnt, Req.size() - 1) && keyToWrite != null && !rebuild) {
 
 
 						dataStore.put(keyToWrite, valueToStore);
 						System.out.println(MyRq + "Wrote to key number: " + keyToWrite + " value of:" + valueToStore);
-						numberOfOperations +=1;
+						numberOfOperations += 1;
 						keyToWrite = null;
 						RpCnt = 0;
-						Req.set(ID, false);
-						for (int j = 0; j < MEMBER_COUNT; j++) {
-							if(Req.get(j)){
-								Req.set(j, false);
+						Req.put(ID, false);
+						for (String key : Req.keySet()) {
+							if (Req.get(key) == true) {
+								Req.put(key, false);
 								TextMessage replyText = topicSession.createTextMessage();
-								replyText.setText("Reply|" + j);
+								replyText.setText("Reply|" + key);
 								topicProducer.send(replyText);
 								System.out.println("Replied after message");
 
@@ -170,3 +181,4 @@ public class MessageSubscriber {
 
 	}
 }
+

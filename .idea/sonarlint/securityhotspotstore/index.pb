@@ -53,3 +53,5 @@ G.idea/sonarlint/issuestore/7/3/730b887a131e560a14dd9aa3be8d8d7c6f9d9c91,e/4/e4
 -.idea/sonarlint/securityhotspotstore/index.pb,8/8/88a9255124c95bdc913197c120a8d560edc59c8e
 Å
 Q.idea/sonarlint/securityhotspotstore/a/a/aae074bb7d7366b2c9ea62160d1c4ed4eb48b33d,3/5/35c83eada87d1f70b14c50a246d32ad28dea03d2
+c
+3src/main/java/cz/cvut/fel/dsva/RebuildTopology.java,9/d/9d1fd563ef83c10ea785700e33cd17ebfe4f08d3
