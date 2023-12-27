@@ -41,7 +41,7 @@ public class MessageSubscriber {
 				// #### administered object ####
 				// This statement can be eliminated if JNDI is used.
 				ConnectionFactory connectionFactory = new com.sun.messaging.ConnectionFactory();
-				((com.sun.messaging.ConnectionFactory) connectionFactory).setProperty(ConnectionConfiguration.imqAddressList, "mq://192.168.18.44:7676,mq://192.168.18.44:7677");
+				((com.sun.messaging.ConnectionFactory) connectionFactory).setProperty(ConnectionConfiguration.imqAddressList, "mq://localhost:7676,mq://192.168.18.44:7677");
 
 				// Create a connection to the JMS
 				Connection myConn = connectionFactory.createConnection();
@@ -71,6 +71,8 @@ public class MessageSubscriber {
 				TextMessage helloMessage = topicSession.createTextMessage();
 				helloMessage.setText("Start|" + ID);
 				topicProducer.send(helloMessage);
+//				timer = new Timer();
+//				timer.scheduleAtFixedRate(new RebuildTopology(),0,10000);
 				while (true) {
 					// Receive a message
 					Message message;
@@ -78,8 +80,18 @@ public class MessageSubscriber {
 					String[] parts = new String[0];
 
 					if (keyToWrite == null) {
+//						if(timer == null){
+//							timer = new Timer();
+//							timer.scheduleAtFixedRate(new RebuildTopology(), 10000,10000);
+//						}
+
 						message = instructionConsumer.receiveNoWait();
 						if (message != null) {
+							if(timer != null){
+								timer.cancel();
+								timer = null;
+							}
+
 							TextMessage txtMsg = (TextMessage) message;
 							messageText = txtMsg.getText();
 							System.out.println("Consumed message from instructionTopic" + messageText + "&& set action");
@@ -88,11 +100,6 @@ public class MessageSubscriber {
 							keyToWrite = parts[1];
 							valueToStore = parts[2];
 
-							if(timer != null){
-								timer.cancel();
-							}
-							timer = new Timer();
-							timer.schedule(new RebuildTopology(), 5000);
 
 						} else {
 							message = topicConsumer.receiveNoWait();
@@ -104,7 +111,10 @@ public class MessageSubscriber {
 							}
 						}
 					} else {
-
+						if(timer != null){
+								timer.cancel();
+								timer = null;
+							}
 						message = topicConsumer.receive();
 						TextMessage txtMsg = (TextMessage) message;
 						messageText = txtMsg.getText();
@@ -132,7 +142,6 @@ public class MessageSubscriber {
 							} else {
 								TextMessage replyText = topicSession.createTextMessage();
 								replyText.setText("Reply|" + Integer.valueOf(parts[2]));
-								System.out.println("Sent Reply due to priority");
 								topicProducer.send(replyText);
 							}
 
@@ -166,8 +175,6 @@ public class MessageSubscriber {
 								TextMessage replyText = topicSession.createTextMessage();
 								replyText.setText("Reply|" + key);
 								topicProducer.send(replyText);
-								System.out.println("Replied after message");
-
 							}
 						}
 					}
@@ -201,7 +208,7 @@ public class MessageSubscriber {
 				// #### administered object ####
 				// This statement can be eliminated if JNDI is used.
 				ConnectionFactory connectionFactory = new com.sun.messaging.ConnectionFactory();
-				((com.sun.messaging.ConnectionFactory) connectionFactory).setProperty(ConnectionConfiguration.imqAddressList, "mq://192.168.18.44:7676,mq://192.168.18.44:7677");
+				((com.sun.messaging.ConnectionFactory) connectionFactory).setProperty(ConnectionConfiguration.imqAddressList, "mq://localhost:7676,mq://192.168.18.44:7677");
 				// Create a connection to the JMS
 				Connection myConn = connectionFactory.createConnection();
 				// Create a session within the connection.

@@ -31,7 +31,7 @@ public class MessagePublisher {
 				// #### administered object ####
 				// This statement can be eliminated if JNDI is used.
 				ConnectionFactory connectionFactory = new com.sun.messaging.ConnectionFactory();
-				((com.sun.messaging.ConnectionFactory) connectionFactory).setProperty(ConnectionConfiguration.imqAddressList, "mq://192.168.18.44:7676,mq://192.168.18.44:7677");
+				((com.sun.messaging.ConnectionFactory) connectionFactory).setProperty(ConnectionConfiguration.imqAddressList, "mq://localhost:7676,mq://192.168.18.44:7677");
 
 				// Create a connection to the JMS
 				Connection myConn = connectionFactory.createConnection();
