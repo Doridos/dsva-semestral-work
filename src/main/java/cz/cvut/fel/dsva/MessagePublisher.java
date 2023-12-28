@@ -12,12 +12,20 @@ public class MessagePublisher {
 		boolean connected = false;
 		int numOfMessages = 8;
 		int producerId = 777;
+		String action = null;
 		if (args.length > 0) {
 			System.out.println("Reading values from commandline ...");
-			producerId = Integer.parseInt(args[0]);
+
+			if(args.length ==1){
+				action = args[1];
+			}else {
+				producerId = Integer.parseInt(args[0]);
+				action = args[1];
+			}
+
 		} else{
 			System.out.println("Using default values ...");
-			args[1] = "write";
+			 action = "write";
 		}
 
 		char[] letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X'};
@@ -49,7 +57,7 @@ public class MessagePublisher {
 				MessageProducer instructionProducer = mySess.createProducer(myTopic);
 
 					for (int j = 0; j < 3; j++) {
-					if(args[1].equals("write")) {
+					if(action.equals("write")) {
 						for (int i = 0; i < numOfMessages; i++) {
 							if (numOfLetter == 24) {
 								numOfLetter = 0;
@@ -68,7 +76,7 @@ public class MessagePublisher {
 //				topicProducer.send(myTextMsg);
 
 						}
-					}else if (args[1].equals("read")) {
+					}else if (action.equals("read")) {
 
 						for (int i = 0; i < numOfMessages; i++) {
 
