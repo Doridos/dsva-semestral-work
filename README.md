@@ -16,7 +16,7 @@ pomocí JMS, která je zprovozněna v clusteru.
 ## Jak práci spustit 🔧
 Ve složce /out/artifacts najdete dvě složky s JAR archivy, jeden se jmenuje Subscriber.jar druhý Publisher.Jar.
 Názvy těchto archivů jsou vypovídající. 
-Soubory je nutno spouštět následujícím příkazem:"
+Soubory je nutno spouštět následujícím příkazem:
 ```
 java -jar Subscriber.jar <ID>
 ```
@@ -30,7 +30,7 @@ Pokud nebude zadán argument ID bude doplněno automaticky na výchozí hodnotu.
 
 V případě subscriberu, najdete logy z posledního běhu programu v souboru, který se jmenuje: subscriber_<Zvolené_ID>.log
 
-Pro spuštění distribuovaného systému je také nutné zprovoznit JMS. V konrkténí implementaci se 
+Pro spuštění distribuovaného systému je také nutné zprovoznit JMS. V konkrétní implementaci se 
 jednotlivé subscribery a publishery, budou připojovat na adresy z lokálního rozsahu. V případě 
 změny těchto adres je tedy nutné změnit i jar archivy, jelikož je nutné tuto změnu provést přímo 
 v kódu aplikace.
@@ -62,4 +62,4 @@ Co přesně tím mám na mysli znázorním během prezentace, kde však doufám,
 
 **Kdy a jak se spouští implementovaný algoritmus?**
 
-Algoritmu se spouští pokaždé, když od "žadatele" přijde zpráva o zápis do kritické sekce.
+Algoritmus se spouští pokaždé, když od "žadatele" (publisheru) přijde zpráva o zápis do kritické sekce.
