@@ -2,12 +2,18 @@ package cz.cvut.fel.dsva;
 
 import com.sun.messaging.ConnectionConfiguration;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.util.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import javax.jms.*;
 
 public class MessageSubscriber {
-
+	private static Logger logger = Logger.getLogger("MyLogger");
 	private static MessageSubscriber instance;
 	private static HashMap<String, Boolean> Req = new HashMap<>();
 	private static String ID;
@@ -16,6 +22,7 @@ public class MessageSubscriber {
 
 
 	public static void main(String[] args) {
+
 		Dictionary<String, String> dataStore = new Hashtable<>();
 		Integer MyRq = 0;
 		Integer numberOfOperations = 0;
@@ -28,10 +35,43 @@ public class MessageSubscriber {
 		boolean connected = false;
 
 
+		try {
+			FileHandler fileHandler = new FileHandler("mylog.log");
+			logger.addHandler(fileHandler);
+			fileHandler.setFormatter(new SimpleFormatter());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		if (args.length < 1) {
-			ID = String.valueOf(0);
+			String interfaceName = "en12"; // Replace with the name of the specific network interface you want to query
+			String ipv4Address = null;
+
+			try {
+				NetworkInterface specificInterface = NetworkInterface.getByName(interfaceName);
+				if (specificInterface != null) {
+					Enumeration<InetAddress> interfaceAddresses = specificInterface.getInetAddresses();
+
+					while (interfaceAddresses.hasMoreElements()) {
+						InetAddress address = interfaceAddresses.nextElement();
+						if (address.getHostAddress().length() > 0) {
+							if (address instanceof java.net.Inet4Address) {
+								ipv4Address = address.getHostAddress();
+								break; // Exit the loop after finding the first IPv4 address
+							}
+						}
+					}
+				}
+				String ipWithoutDots = ipv4Address.replace(".", "");
+				int index = ipWithoutDots.length() - 9;
+				ID = ipWithoutDots.substring(index);
+				logger.info("Set ID from last nine numbers of IP address: " + ID);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
 			ID = args[0];
+			logger.info("Set ID from program arguments: " + ID);
 		}
 
 		Req.put(String.valueOf(ID), false);
@@ -42,10 +82,10 @@ public class MessageSubscriber {
 				// This statement can be eliminated if JNDI is used.
 				ConnectionFactory connectionFactory = new com.sun.messaging.ConnectionFactory();
 				((com.sun.messaging.ConnectionFactory) connectionFactory).setProperty(ConnectionConfiguration.imqAddressList, "mq://192.168.18.44:7676,mq://192.168.18.44:7677");
-
+				logger.info("Tried to connect to JMS.");
 				// Create a connection to the JMS
 				Connection myConn = connectionFactory.createConnection();
-
+				logger.info("Connected to JMS.");
 				// Create a session within the connection.
 				Session instructionSession = myConn.createSession(false, Session.AUTO_ACKNOWLEDGE);
 				Session topicSession = myConn.createSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -56,21 +96,34 @@ public class MessageSubscriber {
 				Destination topicOfInstructions = instructionSession.createTopic("TopicOfInstructions");
 				//Topic for communication
 				Destination topicRiAg = topicSession.createTopic("RiAgTopic");
-
+				logger.info("Connected to JMS topics - TopicOfInstructions and RiAgTopic.");
 
 				// #### Client ####
 				// Create a message consumer.
 				MessageConsumer instructionConsumer = instructionSession.createConsumer(topicOfInstructions);
 				MessageConsumer topicConsumer = topicSession.createConsumer(topicRiAg);
 				MessageProducer topicProducer = topicSession.createProducer(topicRiAg);
+				Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+					// Code to execute when the JVM is about to terminate
+					try {
+						TextMessage byeMessage = topicSession.createTextMessage();
+						logger.info("Said goodbye to JMS and disconnected.");
+						byeMessage.setText("Goodbye|" + ID);
+						topicProducer.send(byeMessage);
+					} catch (JMSException e) {
+						throw new RuntimeException(e);
+					}
 
+				}));
 				// Start the Connection.
 				myConn.start();
 				connected = true;
-				System.out.println("Started node with ID: " + ID);
+//				System.out.println("Started node with ID: " + ID);
+				logger.info("Started node with ID: " + ID);
 				TextMessage helloMessage = topicSession.createTextMessage();
 				helloMessage.setText("Start|" + ID);
 				topicProducer.send(helloMessage);
+				logger.info("Sent hello message to nodes.");
 //				timer = new Timer();
 //				timer.scheduleAtFixedRate(new RebuildTopology(),0,10000);
 				while (true) {
@@ -80,22 +133,22 @@ public class MessageSubscriber {
 					String[] parts = new String[0];
 
 					if (keyToWrite == null) {
-						if(timer == null){
+						if (timer == null) {
 							timer = new Timer();
-							timer.scheduleAtFixedRate(new RebuildTopology(), 20000,20000);
+							timer.scheduleAtFixedRate(new RebuildTopology(), 20000, 20000);
 						}
 
 						message = instructionConsumer.receiveNoWait();
 						if (message != null) {
-							if(timer != null){
+							if (timer != null) {
 								timer.cancel();
 								timer = null;
 							}
 
 							TextMessage txtMsg = (TextMessage) message;
 							messageText = txtMsg.getText();
-							System.out.println("Consumed message from instructionTopic" + messageText + "&& set action");
-
+//							System.out.println("Consumed message from instructionTopic" + messageText + "&& set action");
+							logger.info("Consumed message from instructionTopic" + messageText + "&& set action");
 							parts = messageText.split("\\|");
 							keyToWrite = parts[1];
 							valueToStore = parts[2];
@@ -103,23 +156,21 @@ public class MessageSubscriber {
 
 						} else {
 							message = topicConsumer.receiveNoWait();
-							if (message != null)  {
+							if (message != null) {
 								TextMessage txtMsg = (TextMessage) message;
 								messageText = txtMsg.getText();
 								parts = messageText.split("\\|");
 //								System.out.println("Received message from topic " + messageText);
+								logger.info("Received message from topic " + messageText);
 							}
 						}
 					} else {
-						if(timer != null){
-								timer.cancel();
-								timer = null;
-							}
 						message = topicConsumer.receive();
 						TextMessage txtMsg = (TextMessage) message;
 						messageText = txtMsg.getText();
 						parts = messageText.split("\\|");
 //						System.out.println("Received message from topic " + messageText);
+						logger.info("Received message from topic " + messageText);
 					}
 
 
@@ -147,26 +198,41 @@ public class MessageSubscriber {
 
 						} else if (parts[0].equals("Reply") && parts[1].equals(ID)) {
 							RpCnt = RpCnt + 1;
+						} else if (parts[0].equals("Goodbye")) {
+							Req.remove(parts[1]);
+//							System.out.println("Received goodbye message from: " + parts[1]);
+							logger.info("Received goodbye message from: " + parts[1]);
 						} else if (parts[0].equals("Start") && !parts[1].equals(ID)) {
 							if (!Req.containsKey(parts[1])) {
 								Req.put(parts[1], false);
-								TextMessage replyText = topicSession.createTextMessage();
-								replyText.setText("Confirm|" + ID);
-								topicProducer.send(replyText);
-//								System.out.println("I confirmed");
+							} else {
+								boolean previousNodeState = Req.get(parts[1]);
+								Req.put(parts[1], previousNodeState);
 							}
+							TextMessage replyText = topicSession.createTextMessage();
+							replyText.setText("Confirm|" + ID);
+							topicProducer.send(replyText);
+//							System.out.println("Total number of members is now: " + Req.size());
+							logger.info("Total number of members is now: " + Req.size());
+//								System.out.println("I confirmed");
 
-						} else if (parts[0].equals("Confirm") && !parts[1].equals(ID)) {
-							Req.put(parts[1], false);
-							System.out.println("Total number of members is now: " + Req.size());
+						} else if (parts[0].equals("Confirm")) {
+							if (!parts[1].equals(ID)) {
+								Req.put(parts[1], false);
+//								System.out.println("Total number of members is now: " + Req.size());
+								logger.info("Total number of members is now: " + Req.size());
+							}
 						}
 					}
 
 					if (Objects.equals(RpCnt, Req.size() - 1) && keyToWrite != null && !rebuild) {
-						System.out.println("-------------------------");
-						System.out.println("Entered critical section.");
+
+//						System.out.println("-------------------------");
+//						System.out.println("Entered critical section.");
+						logger.info("Entered critical section.");
 						dataStore.put(keyToWrite, valueToStore);
-						System.out.println("Key " + keyToWrite + " = " + valueToStore);
+//						System.out.println("Key " + keyToWrite + " = " + valueToStore);
+						logger.info("Key " + keyToWrite + " = " + valueToStore);
 						numberOfOperations += 1;
 						keyToWrite = null;
 						RpCnt = 0;
@@ -179,8 +245,14 @@ public class MessageSubscriber {
 								topicProducer.send(replyText);
 							}
 						}
-						System.out.println("Left critical section.");
-						System.out.println("-------------------------");
+						logger.info("Left critical section.");
+//						System.out.println("Left critical section.");
+//						System.out.println("-------------------------");
+					} else {
+						if (timer == null) {
+							timer = new Timer();
+							timer.scheduleAtFixedRate(new RebuildTopology(), 20000, 20000);
+						}
 					}
 
 				}
@@ -203,7 +275,8 @@ public class MessageSubscriber {
 	static class RebuildTopology extends TimerTask {
 		@Override
 		public void run() {
-			System.out.println("REBUILDING");
+//			System.out.println("REBUILDING");
+			logger.info("Rebuilding topology.");
 			// Clear the Req HashMap
 			Req.clear();
 			Req.put(String.valueOf(ID), false);
@@ -229,11 +302,14 @@ public class MessageSubscriber {
 				helloMessage.setText("Start|" + ID);
 				topicProducer.send(helloMessage);
 				rebuild = false;
-
+				myConn.close();
+//				System.out.println("FINISHED REBUILDING");
+				logger.info("Topology was rebuilt.");
 			} catch (JMSException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 }
+
 

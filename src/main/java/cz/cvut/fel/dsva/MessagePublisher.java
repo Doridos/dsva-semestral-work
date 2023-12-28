@@ -50,7 +50,7 @@ public class MessagePublisher {
 				MessageProducer myMsgProducer = mySess.createProducer(myTopic);
 
 				// Create and send a message to the queue.
-				for (int j = 0; j < 4; j++) {
+				for (int j = 0; j < 3; j++) {
 					for (int i = 0; i < numOfMessages; i++) {
 						if (numOfLetter == 24) {
 							numOfLetter = 0;
