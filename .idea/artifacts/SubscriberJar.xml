@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="SubscriberJar">
     <output-path>$PROJECT_DIR$/out/artifacts/SubscriberJar</output-path>
-    <root id="archive" name="Subscriber.jar">
+    <root id="archive" name="JMS.jar">
       <element id="module-output" name="JMS" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/jms.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/imq.jar" path-in-jar="/" />
