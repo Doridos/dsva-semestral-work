@@ -63,3 +63,12 @@ Co přesně tím mám na mysli znázorním během prezentace, kde však doufám,
 **Kdy a jak se spouští implementovaný algoritmus?**
 
 Algoritmus se spouští pokaždé, když od "žadatele" (publisheru) přijde zpráva o zápis do kritické sekce.
+
+## Funkční dotazy ❓
+Během testování jsem zkoušel připojit mnoho uzlů a následně je odpojovat.
+Odpojoval jsem uzly až do doby než zbyl pouze jeden připojený uzel. Uspořádání požadavků
+jsem kontroloval na základě časových údajů zpráv a potvrzovacích zpráv v algoritmu Ri-Ag.
+
+Pomalejší odesílání zpráv jsem zkoušel nastavovat na zpoždění max 500 ms. V případě takového nastavení
+je zřejmé jak je celý algoritmus silně zpomalený.
+
