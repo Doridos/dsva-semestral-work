@@ -1,15 +1,18 @@
 
+g	java:S112]"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8öîûË1
 j
-java:S2095%"HUse try-with-resources or close this "Connection" in a "finally" clause.(½¬ª¶üÿÿÿÿ8î¬È—Ê1
-T
-java:S1854"7Remove this useless assignment to local variable "rnd".(–áÍÈ8ğ¬È—Ê1
+java:S2095'"HUse try-with-resources or close this "Connection" in a "finally" clause.(½¬ª¶üÿÿÿÿ8±ïûË1
+o
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(Çµí‘8³ïûË1
 Y
-java:S1854L"=Remove this useless assignment to local variable "connected".(áÀ8ğ¬È—Ê1
-L	java:S106"+Replace this use of System.out by a logger.(´ù¨şÿÿÿÿ8ñ¬È—Ê1
-L	java:S106"+Replace this use of System.out by a logger.(ÿ®Õıÿÿÿÿ8ñ¬È—Ê1
+java:S1854U"=Remove this useless assignment to local variable "connected".(áÀ8´ïûË1
+L	java:S106"+Replace this use of System.out by a logger.(´ù¨şÿÿÿÿ8´ïûË1
+L	java:S106"+Replace this use of System.out by a logger.(ÿ®Õıÿÿÿÿ8µïûË1
+{
+java:S2142\"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8µïûË1
 O
-java:S1481"2Remove this unused "myConnFactory" local variable.(€ß¬Œ8ò¬È—Ê1
-E
-java:S1481"(Remove this unused "rnd" local variable.(–áÍÈ8ó¬È—Ê1
-F	java:S106<"+Replace this use of System.out by a logger.(¼•Ğ8ô¬È—Ê1
-X	java:S125>"<This block of commented-out lines of code should be removed.(œáÈ8ô¬È—Ê1
+java:S1481"2Remove this unused "myConnFactory" local variable.(€ß¬Œ8µïûË1
+F	java:S106?"+Replace this use of System.out by a logger.(¼•Ğ8·ïûË1
+X	java:S125D"<This block of commented-out lines of code should be removed.(œáÈ8·ïûË1
+O
+java:S1128"-Remove this unused import 'java.util.Random'.(èøÉ›ùÿÿÿÿ8¸ïûË1

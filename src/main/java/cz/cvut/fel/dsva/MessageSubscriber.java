@@ -41,7 +41,7 @@ public class MessageSubscriber {
 				// #### administered object ####
 				// This statement can be eliminated if JNDI is used.
 				ConnectionFactory connectionFactory = new com.sun.messaging.ConnectionFactory();
-				((com.sun.messaging.ConnectionFactory) connectionFactory).setProperty(ConnectionConfiguration.imqAddressList, "mq://localhost:7676,mq://192.168.18.44:7677");
+				((com.sun.messaging.ConnectionFactory) connectionFactory).setProperty(ConnectionConfiguration.imqAddressList, "mq://192.168.18.44:7676,mq://192.168.18.44:7677");
 
 				// Create a connection to the JMS
 				Connection myConn = connectionFactory.createConnection();
@@ -67,7 +67,7 @@ public class MessageSubscriber {
 				// Start the Connection.
 				myConn.start();
 				connected = true;
-
+				System.out.println("Started node with ID: " + ID);
 				TextMessage helloMessage = topicSession.createTextMessage();
 				helloMessage.setText("Start|" + ID);
 				topicProducer.send(helloMessage);
@@ -80,10 +80,10 @@ public class MessageSubscriber {
 					String[] parts = new String[0];
 
 					if (keyToWrite == null) {
-//						if(timer == null){
-//							timer = new Timer();
-//							timer.scheduleAtFixedRate(new RebuildTopology(), 10000,10000);
-//						}
+						if(timer == null){
+							timer = new Timer();
+							timer.scheduleAtFixedRate(new RebuildTopology(), 20000,20000);
+						}
 
 						message = instructionConsumer.receiveNoWait();
 						if (message != null) {
@@ -103,11 +103,11 @@ public class MessageSubscriber {
 
 						} else {
 							message = topicConsumer.receiveNoWait();
-							if (message != null) {
+							if (message != null)  {
 								TextMessage txtMsg = (TextMessage) message;
 								messageText = txtMsg.getText();
 								parts = messageText.split("\\|");
-								System.out.println("Received message from topic " + messageText);
+//								System.out.println("Received message from topic " + messageText);
 							}
 						}
 					} else {
@@ -119,7 +119,7 @@ public class MessageSubscriber {
 						TextMessage txtMsg = (TextMessage) message;
 						messageText = txtMsg.getText();
 						parts = messageText.split("\\|");
-						System.out.println("Received message from topic " + messageText);
+//						System.out.println("Received message from topic " + messageText);
 					}
 
 
@@ -153,18 +153,20 @@ public class MessageSubscriber {
 								TextMessage replyText = topicSession.createTextMessage();
 								replyText.setText("Confirm|" + ID);
 								topicProducer.send(replyText);
-								System.out.println("I confirmed");
+//								System.out.println("I confirmed");
 							}
 
 						} else if (parts[0].equals("Confirm") && !parts[1].equals(ID)) {
 							Req.put(parts[1], false);
-							System.out.println(Req.size());
+							System.out.println("Total number of members is now: " + Req.size());
 						}
 					}
 
 					if (Objects.equals(RpCnt, Req.size() - 1) && keyToWrite != null && !rebuild) {
+						System.out.println("-------------------------");
+						System.out.println("Entered critical section.");
 						dataStore.put(keyToWrite, valueToStore);
-						System.out.println(MyRq + "Wrote to key number: " + keyToWrite + " value of:" + valueToStore);
+						System.out.println("Key " + keyToWrite + " = " + valueToStore);
 						numberOfOperations += 1;
 						keyToWrite = null;
 						RpCnt = 0;
@@ -177,7 +179,10 @@ public class MessageSubscriber {
 								topicProducer.send(replyText);
 							}
 						}
+						System.out.println("Left critical section.");
+						System.out.println("-------------------------");
 					}
+
 				}
 
 
@@ -208,7 +213,7 @@ public class MessageSubscriber {
 				// #### administered object ####
 				// This statement can be eliminated if JNDI is used.
 				ConnectionFactory connectionFactory = new com.sun.messaging.ConnectionFactory();
-				((com.sun.messaging.ConnectionFactory) connectionFactory).setProperty(ConnectionConfiguration.imqAddressList, "mq://localhost:7676,mq://192.168.18.44:7677");
+				((com.sun.messaging.ConnectionFactory) connectionFactory).setProperty(ConnectionConfiguration.imqAddressList, "mq://192.168.18.44:7676,mq://192.168.18.44:7677");
 				// Create a connection to the JMS
 				Connection myConn = connectionFactory.createConnection();
 				// Create a session within the connection.

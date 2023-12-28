@@ -11,7 +11,7 @@ public class MessagePublisher {
 	public static void main(String[] args) {
 		boolean connected = false;
 		// set default values
-		int numOfMessages = 10;
+		int numOfMessages = 8;
 		int producerId = 666;
 		// reading input data from commandline
 		if (args.length == 2) {
@@ -20,18 +20,20 @@ public class MessagePublisher {
 			numOfMessages = Integer.parseInt(args[1]);
 		} else
 			System.out.println("Using default values ...");
+		char[] letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X'};
+		int numOfLetter = 0;
 
 		try {
 			while (!connected) {
 
 				ConnectionFactory myConnFactory;
 				Topic myTopic;
-				Random rnd = new Random();
+
 
 				// #### administered object ####
 				// This statement can be eliminated if JNDI is used.
 				ConnectionFactory connectionFactory = new com.sun.messaging.ConnectionFactory();
-				((com.sun.messaging.ConnectionFactory) connectionFactory).setProperty(ConnectionConfiguration.imqAddressList, "mq://localhost:7676,mq://192.168.18.44:7677");
+				((com.sun.messaging.ConnectionFactory) connectionFactory).setProperty(ConnectionConfiguration.imqAddressList, "mq://192.168.18.44:7676,mq://192.168.18.44:7677");
 
 				// Create a connection to the JMS
 				Connection myConn = connectionFactory.createConnection();
@@ -48,21 +50,28 @@ public class MessagePublisher {
 				MessageProducer myMsgProducer = mySess.createProducer(myTopic);
 
 				// Create and send a message to the queue.
-				for (int i = 0; i < numOfMessages; i++) {
+				for (int j = 0; j < 4; j++) {
+					for (int i = 0; i < numOfMessages; i++) {
+						if (numOfLetter == 24) {
+							numOfLetter = 0;
+						}
+						TextMessage myTextMsg = mySess.createTextMessage();
 
-					TextMessage myTextMsg = mySess.createTextMessage();
-					if (i % 2 == 0) {
-						myTextMsg.setText("Change|"+ 0 +"|alfa|"+i+"|Message from producer-" + producerId);
-					} else {
-						myTextMsg.setText("Change|"+ 0 +"|beta|"+i+"|Message from producer-" + producerId);
-					}
+						myTextMsg.setText("Change|" + i + "|" + letters[numOfLetter] + "|Message from producer-" + producerId);
 
-					System.out.println("Sending Message: " + myTextMsg.getText());
-					myMsgProducer.send(myTextMsg);
+
+						System.out.println("Sending Message: " + myTextMsg.getText());
+						myMsgProducer.send(myTextMsg);
+						numOfLetter += 1;
+
+
 //				myTextMsg.setText("Message to topic " + i);
 //				topicProducer.send(myTextMsg);
 
+					}
+					Thread.sleep(10000);
 				}
+
 				connected = true;
 
 
@@ -80,6 +89,8 @@ public class MessagePublisher {
 			} catch (InterruptedException ie) {
 				Thread.currentThread().interrupt();
 			}
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }

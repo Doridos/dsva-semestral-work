@@ -1,41 +1,45 @@
 
-l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›ş8êÇ¼¿Ê1
-m	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æÿ‰8êÇ¼¿Ê1
-r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸŸ¦Èÿÿÿÿÿ8êÇ¼¿Ê1
+l	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›ş8ã‚‚Ë1
+m	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æÿ‰8ã‚‚Ë1
+r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸŸ¦Èÿÿÿÿÿ8ã‚‚Ë1
 E
-java:S5411‚"(Use a primitive boolean expression here.( ‘H8êÇ¼¿Ê1
+java:S5411Œ"(Use a primitive boolean expression here.( ‘H8ã‚‚Ë1
 K
-java:S5411¤"(Use a primitive boolean expression here.(ÏŠ“ñıÿÿÿÿ8ëÇ¼¿Ê1
+java:S5411¯"(Use a primitive boolean expression here.(ÏŠ“ñıÿÿÿÿ8ã‚‚Ë1
 k
-java:S2095Î"HUse try-with-resources or close this "Connection" in a "finally" clause.(½¬ª¶üÿÿÿÿ8¿È¼¿Ê1
+java:S2095Ú"HUse try-with-resources or close this "Connection" in a "finally" clause.(½¬ª¶üÿÿÿÿ8Îƒ‚Ë1
 k
-java:S3008"NRename this field "Req" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹Ÿ¤ô8ÀÈ¼¿Ê1
+java:S3008"NRename this field "Req" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹Ÿ¤ô8Ïƒ‚Ë1
 j
-java:S3008"MRename this field "ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦±ƒ‘8ÀÈ¼¿Ê1
+java:S3008"MRename this field "ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦±ƒ‘8Ïƒ‚Ë1
 x
-java:S1149"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(‚ˆ÷¬ıÿÿÿÿ8ÃÈ¼¿Ê1
+java:S1149"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(‚ˆ÷¬ıÿÿÿÿ8Òƒ‚Ë1
 o
-java:S3776"RRefactor this method to reduce its Cognitive Complexity from 76 to the 15 allowed.(Çµí‘8ÅÈ¼¿Ê1
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 84 to the 15 allowed.(Çµí‘8Õƒ‚Ë1
 T
-java:S1481"7Remove this unused "numberOfOperations" local variable.(ñ¨„‚8ÆÈ¼¿Ê1
-L	java:S106U"+Replace this use of System.out by a logger.(“´‡ÿûÿÿÿÿ8ÈÈ¼¿Ê1
-F	java:S106g"+Replace this use of System.out by a logger.(¥ü8ÉÈ¼¿Ê1
-F	java:S106p"+Replace this use of System.out by a logger.(¥ü8ÉÈ¼¿Ê1
-H	java:S106‡"+Replace this use of System.out by a logger.( ìÑ‹8ÊÈ¼¿Ê1
-H	java:S106“"+Replace this use of System.out by a logger.(†ëâİ8ËÈ¼¿Ê1
-H	java:S106˜"+Replace this use of System.out by a logger.(éì‡8ËÈ¼¿Ê1
-H	java:S106"+Replace this use of System.out by a logger.(Ôî»´8ËÈ¼¿Ê1
+java:S1481"7Remove this unused "numberOfOperations" local variable.(ñ¨„‚8×ƒ‚Ë1
+G	java:S106F"+Replace this use of System.out by a logger.(—Ş³8Úƒ‚Ë1
+X	java:S125J"<This block of commented-out lines of code should be removed.(ÂƒÂÿ8¡ÔË1
+L	java:S106a"+Replace this use of System.out by a logger.(“´‡ÿûÿÿÿÿ8ïƒ‚Ë1
+X	java:S125n"<This block of commented-out lines of code should be removed.(÷£Ø†8¡À‰Ë1
+X	java:S125z"<This block of commented-out lines of code should be removed.(÷£Ø†8÷æ‰Ë1
+Y	java:S125œ"<This block of commented-out lines of code should be removed.(µú¢¶8ºŒ‹‚Ë1
+M	java:S106¡"+Replace this use of System.out by a logger.(µÊªùÿÿÿÿ8óƒ‚Ë1
+H	java:S106¦"+Replace this use of System.out by a logger.(ğÔ‘¬8öƒ‚Ë1
+H	java:S106§"+Replace this use of System.out by a logger.(ã‹§†8ÓÒ…Ë1
+M	java:S106©"+Replace this use of System.out by a logger.(”°Ïşÿÿÿÿ8Ñ¨ÉË1
 W
-java:S2864£"4Iterate over the "entrySet" instead of the "keySet".(¢´ØÕúÿÿÿÿ8ÌÈ¼¿Ê1
+java:S2864®"4Iterate over the "entrySet" instead of the "keySet".(¢´ØÕúÿÿÿÿ8óƒ‚Ë1
 J
-java:S1125¤"'Remove the unnecessary boolean literal.(ÏŠ“ñıÿÿÿÿ8ÌÈ¼¿Ê1
-M	java:S106©"+Replace this use of System.out by a logger.(‰ùÒ¼úÿÿÿÿ8ÌÈ¼¿Ê1
-M	java:S106Â"+Replace this use of System.out by a logger.(Å®Ñùÿÿÿÿ8ñ¤Ô¿Ê1
+java:S1125¯"'Remove the unnecessary boolean literal.(ÏŠ“ñıÿÿÿÿ8óƒ‚Ë1
+H	java:S106¶"+Replace this use of System.out by a logger.(™ìù®8ƒ™ËË1
+H	java:S106·"+Replace this use of System.out by a logger.(ğÔ‘¬8ºëĞË1
+M	java:S106Î"+Replace this use of System.out by a logger.(Å®Ñùÿÿÿÿ8¼ëĞË1
 Y
-java:S2696Æ"6Make the enclosing method "static" or remove this set.(îªºîûÿÿÿÿ8”œÂ¿Ê1
+java:S2696Ò"6Make the enclosing method "static" or remove this set.(îªºîûÿÿÿÿ8÷ƒ‚Ë1
 T
-java:S2696Û"6Make the enclosing method "static" or remove this set.(Î‡†8ô§Ã¿Ê1
+java:S2696ç"6Make the enclosing method "static" or remove this set.(Î‡†8øƒ‚Ë1
 I
-java:S1068",Remove this unused "instance" private field.(ŒÉÿö8ÎÈ¼¿Ê1
+java:S1068",Remove this unused "instance" private field.(ŒÉÿö8øƒ‚Ë1
 ä
-java:S6541"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 128 to 64, Complexity from 29 to 14, Nesting Level from 6 to 2, Number of Variables from 32 to 6.(Çµí‘8ÎÈ¼¿Ê1
+java:S6541"ÆA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 135 to 64, Complexity from 31 to 14, Nesting Level from 6 to 2, Number of Variables from 32 to 6.(Çµí‘8øƒ‚Ë1
