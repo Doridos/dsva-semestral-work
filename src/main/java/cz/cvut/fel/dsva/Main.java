@@ -9,6 +9,7 @@ import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.concurrent.locks.ReentrantLock;
 
+//For testing purposes only.
 public class Main {
     private static int sharedCounter = 0;
 

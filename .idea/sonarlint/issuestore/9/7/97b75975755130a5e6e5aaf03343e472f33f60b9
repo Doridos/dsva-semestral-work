@@ -19,8 +19,6 @@ java:S1149
 java:S1130"tRemove the declaration of thrown exception 'javax.jms.JMSException', as it cannot be thrown from constructor's body.(ıÌ·ª8Â‰Ÿ™Ê1
 o
 java:S3776("RRefactor this method to reduce its Cognitive Complexity from 38 to the 15 allowed.(“–ış8Ã‰Ÿ™Ê1
-m
-java:S62012"KReplace this instanceof check and cast with 'instanceof TextMessage txtMsg'( ÎÃøÿÿÿÿ8Ä‰Ÿ™Ê1
 L	java:S1065"+Replace this use of System.out by a logger.(“´‡ÿûÿÿÿÿ8Ä‰Ÿ™Ê1
 L	java:S106A"+Replace this use of System.out by a logger.(Û®òšşÿÿÿÿ8Ä‰Ÿ™Ê1
 G	java:S106e"+Replace this use of System.out by a logger.(Ôî»´8Æ‰Ÿ™Ê1

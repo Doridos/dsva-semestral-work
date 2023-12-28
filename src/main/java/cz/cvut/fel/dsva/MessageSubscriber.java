@@ -14,7 +14,6 @@ import javax.jms.*;
 
 public class MessageSubscriber {
 	private static Logger logger = Logger.getLogger("MyLogger");
-	private static MessageSubscriber instance;
 	private static HashMap<String, Boolean> Req = new HashMap<>();
 	private static String ID;
 	private static boolean rebuild = false;
@@ -36,15 +35,15 @@ public class MessageSubscriber {
 
 
 		try {
-			FileHandler fileHandler = new FileHandler("mylog.log");
+			FileHandler fileHandler = new FileHandler("subscriber.log");
 			logger.addHandler(fileHandler);
 			fileHandler.setFormatter(new SimpleFormatter());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.severe("This node was unable to connect to JSM.");
 		}
 
 		if (args.length < 1) {
-			String interfaceName = "en12"; // Replace with the name of the specific network interface you want to query
+			String interfaceName = "enp0s1";
 			String ipv4Address = null;
 
 			try {
@@ -57,7 +56,7 @@ public class MessageSubscriber {
 						if (address.getHostAddress().length() > 0) {
 							if (address instanceof java.net.Inet4Address) {
 								ipv4Address = address.getHostAddress();
-								break; // Exit the loop after finding the first IPv4 address
+								break;
 							}
 						}
 					}
@@ -67,7 +66,7 @@ public class MessageSubscriber {
 				ID = ipWithoutDots.substring(index);
 				logger.info("Set ID from last nine numbers of IP address: " + ID);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.severe("This node was unable to connect to JSM.");
 			}
 		} else {
 			ID = args[0];
@@ -78,8 +77,6 @@ public class MessageSubscriber {
 
 		while (!connected) {
 			try {
-				// #### administered object ####
-				// This statement can be eliminated if JNDI is used.
 				ConnectionFactory connectionFactory = new com.sun.messaging.ConnectionFactory();
 				((com.sun.messaging.ConnectionFactory) connectionFactory).setProperty(ConnectionConfiguration.imqAddressList, "mq://192.168.18.44:7676,mq://192.168.18.44:7677");
 				logger.info("Tried to connect to JMS.");
@@ -90,38 +87,35 @@ public class MessageSubscriber {
 				Session instructionSession = myConn.createSession(false, Session.AUTO_ACKNOWLEDGE);
 				Session topicSession = myConn.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-
-				// Instantiate a JMS Queue Destination
-				// This statement can be eliminated if JNDI is used.
+				// Topic for instructions
 				Destination topicOfInstructions = instructionSession.createTopic("TopicOfInstructions");
-				//Topic for communication
+				// Topic for communication
 				Destination topicRiAg = topicSession.createTopic("RiAgTopic");
 				logger.info("Connected to JMS topics - TopicOfInstructions and RiAgTopic.");
 
-				// #### Client ####
-				// Create a message consumer.
+				// Create a message consumer and producer.
 				MessageConsumer instructionConsumer = instructionSession.createConsumer(topicOfInstructions);
 				MessageConsumer topicConsumer = topicSession.createConsumer(topicRiAg);
 				MessageProducer topicProducer = topicSession.createProducer(topicRiAg);
 				Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-					// Code to execute when the JVM is about to terminate
 					try {
 						TextMessage byeMessage = topicSession.createTextMessage();
 						logger.info("Said goodbye to JMS and disconnected.");
 						byeMessage.setText("Goodbye|" + ID);
 						topicProducer.send(byeMessage);
 					} catch (JMSException e) {
-						throw new RuntimeException(e);
+						logger.severe("This node was unable to connect to JSM.");
 					}
 
 				}));
-				// Start the Connection.
+				// Start the connection
 				myConn.start();
 				connected = true;
 //				System.out.println("Started node with ID: " + ID);
 				logger.info("Started node with ID: " + ID);
 				TextMessage helloMessage = topicSession.createTextMessage();
 				helloMessage.setText("Start|" + ID);
+				rebuild = false;
 				topicProducer.send(helloMessage);
 				logger.info("Sent hello message to nodes.");
 //				timer = new Timer();
@@ -139,6 +133,7 @@ public class MessageSubscriber {
 						}
 
 						message = instructionConsumer.receiveNoWait();
+						// Process the message
 						if (message != null) {
 							if (timer != null) {
 								timer.cancel();
@@ -175,7 +170,7 @@ public class MessageSubscriber {
 
 
 					if (message instanceof TextMessage) {
-
+						Thread.sleep(500);
 
 						if (parts[0].equals("Change")) {
 							Req.put(ID, true);
@@ -259,54 +254,54 @@ public class MessageSubscriber {
 
 
 			} catch (JMSException e) {
-				e.printStackTrace();
+				logger.severe("This node was unable to connect to JSM.");
 				connected = false;
+				rebuild = true;
 				// Optionally add a delay before reconnecting
 				try {
-					Thread.sleep(10000); // Wait for 10 seconds before retrying
+					Thread.sleep(3000); // Wait for 3 seconds before retrying
 				} catch (InterruptedException ie) {
 					Thread.currentThread().interrupt();
 				}
-			}
-		}
+			} catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
 	}
 
 	static class RebuildTopology extends TimerTask {
 		@Override
 		public void run() {
-//			System.out.println("REBUILDING");
-			logger.info("Rebuilding topology.");
-			// Clear the Req HashMap
-			Req.clear();
-			Req.put(String.valueOf(ID), false);
-			rebuild = true;
-			// Send a different message to the topic
-			try {
-				// #### administered object ####
-				// This statement can be eliminated if JNDI is used.
-				ConnectionFactory connectionFactory = new com.sun.messaging.ConnectionFactory();
-				((com.sun.messaging.ConnectionFactory) connectionFactory).setProperty(ConnectionConfiguration.imqAddressList, "mq://192.168.18.44:7676,mq://192.168.18.44:7677");
-				// Create a connection to the JMS
-				Connection myConn = connectionFactory.createConnection();
-				// Create a session within the connection.
-				Session topicSession = myConn.createSession(false, Session.AUTO_ACKNOWLEDGE);
-				// Instantiate a JMS Queue Destination
-				// This statement can be eliminated if JNDI is used.
-				//Topic for communication
-				Destination topicRiAg = topicSession.createTopic("RiAgTopic");
-				// #### Client ####
-				// Create a message consumer.
-				MessageProducer topicProducer = topicSession.createProducer(topicRiAg);
-				TextMessage helloMessage = topicSession.createTextMessage();
-				helloMessage.setText("Start|" + ID);
-				topicProducer.send(helloMessage);
-				rebuild = false;
-				myConn.close();
+			if(!rebuild){
+//				System.out.println("REBUILDING");
+				logger.info("Rebuilding topology.");
+				// Clear the Req HashMap
+				Req.clear();
+				Req.put(String.valueOf(ID), false);
+				rebuild = true;
+				// Send a different message to the topic
+				try {
+					ConnectionFactory connectionFactory = new com.sun.messaging.ConnectionFactory();
+					((com.sun.messaging.ConnectionFactory) connectionFactory).setProperty(ConnectionConfiguration.imqAddressList, "mq://192.168.18.44:7676,mq://192.168.18.44:7677");
+					// Create a connection to the JMS
+					Connection myConn = connectionFactory.createConnection();
+					// Create a session within the connection
+					Session topicSession = myConn.createSession(false, Session.AUTO_ACKNOWLEDGE);
+					// Topic for communication
+					Destination topicRiAg = topicSession.createTopic("RiAgTopic");
+					// Create a message producer
+					MessageProducer topicProducer = topicSession.createProducer(topicRiAg);
+					TextMessage helloMessage = topicSession.createTextMessage();
+					helloMessage.setText("Start|" + ID);
+					topicProducer.send(helloMessage);
+					rebuild = false;
+					myConn.close();
 //				System.out.println("FINISHED REBUILDING");
-				logger.info("Topology was rebuilt.");
-			} catch (JMSException e) {
-				e.printStackTrace();
+					logger.info("Topology was rebuilt.");
+				} catch (JMSException e) {
+					logger.severe("This node was unable to connect to JSM.");
+				}
 			}
 		}
 	}

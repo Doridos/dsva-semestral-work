@@ -1,9 +1,0 @@
-# start broker
-./imqbrokerd
-
-# create destination - queue
-./imqcmd create dst -n dsvQueue -t q -o "maxNumMsgs=1000" -o "limitBehavior=REMOVE_OLDEST"
-
-# list information about broker and destination
-./imqcmd list bkr
-./imqcmd list dst
