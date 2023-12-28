@@ -20,7 +20,7 @@ Soubory je nutno spouštět následujícím příkazem:
 ```
 java -jar Subscriber.jar <ID>
 ```
-Pokud nebude zadán argument ID, bude ID zvoleno na základě IP adresy stanice, kde je proces spouštěn.
+Pokud nebude zadán argument ID, bude ID zvoleno na základě IP adresy stanice z interfacu enp0s1, kde je proces spouštěn. Pokud takový interface neexistuje bude ID null.
 
 ```
 java -jar Publisher.jar <ID> <write|read>
