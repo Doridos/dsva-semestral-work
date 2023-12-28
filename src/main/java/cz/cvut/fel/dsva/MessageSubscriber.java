@@ -34,13 +34,7 @@ public class MessageSubscriber {
 		boolean connected = false;
 
 
-		try {
-			FileHandler fileHandler = new FileHandler("subscriber.log");
-			logger.addHandler(fileHandler);
-			fileHandler.setFormatter(new SimpleFormatter());
-		} catch (IOException e) {
-			logger.severe("This node was unable to connect to JSM.");
-		}
+
 
 		if (args.length < 1) {
 			String interfaceName = "enp0s1";
@@ -72,7 +66,14 @@ public class MessageSubscriber {
 			ID = args[0];
 			logger.info("Set ID from program arguments: " + ID);
 		}
-
+		try {
+			String nameOfFile = "subscriber_" + ID + ".log";
+			FileHandler fileHandler = new FileHandler(nameOfFile);
+			logger.addHandler(fileHandler);
+			fileHandler.setFormatter(new SimpleFormatter());
+		} catch (IOException e) {
+			logger.severe("This node was unable to connect to JSM.");
+		}
 		Req.put(String.valueOf(ID), false);
 
 		while (!connected) {
@@ -170,7 +171,7 @@ public class MessageSubscriber {
 
 
 					if (message instanceof TextMessage) {
-						Thread.sleep(500);
+//						Thread.sleep(500);
 
 						if (parts[0].equals("Change")) {
 							Req.put(ID, true);
@@ -193,7 +194,9 @@ public class MessageSubscriber {
 
 						} else if (parts[0].equals("Reply") && parts[1].equals(ID)) {
 							RpCnt = RpCnt + 1;
-						} else if (parts[0].equals("Goodbye")) {
+						}else if (parts[0].equals("GetValue")) {
+							logger.info("Read value stored on node:" + ID + " with key "+parts[1]+" value = "+dataStore.get(parts[1]));
+						}  else if (parts[0].equals("Goodbye")) {
 							Req.remove(parts[1]);
 //							System.out.println("Received goodbye message from: " + parts[1]);
 							logger.info("Received goodbye message from: " + parts[1]);
@@ -263,9 +266,10 @@ public class MessageSubscriber {
 				} catch (InterruptedException ie) {
 					Thread.currentThread().interrupt();
 				}
-			} catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+			}
+//			catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
         }
 
 	}
