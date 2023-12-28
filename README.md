@@ -61,4 +61,5 @@ Co se týče redundance JMS, ta je také implementována. Avšak funguje velmi n
 Co přesně tím mám na mysli znázorním během prezentace, kde však doufám, že se mi cluster podaří zprovoznit :).
 
 **Kdy a jak se spouští implementovaný algoritmus?**
+
 Algoritmu se spouští pokaždé, když od "žadatele" přijde zpráva o zápis do kritické sekce.
