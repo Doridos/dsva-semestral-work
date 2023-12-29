@@ -17,7 +17,7 @@ public class MessagePublisher {
 			System.out.println("Reading values from commandline ...");
 
 			if(args.length ==1){
-				action = args[1];
+				action = args[0];
 			}else {
 				producerId = Integer.parseInt(args[0]);
 				action = args[1];

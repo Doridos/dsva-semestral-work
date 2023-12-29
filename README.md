@@ -10,7 +10,7 @@ Softwarové inženýrství a technologie, Fakulta elektrotechnická, ČVUT
 ## Popis aplikace 🖥️
 
 Aplikace nabízí funkcionalitu distribuovaného systému, který má implementován algoritmus Ri-Ag Delay pro přístup do kritické sekce, 
-které je realizována pomocí hashmapy a umožňuje zápis osmi prvků klíč - hodnota. Veškerá komunikace mezi jednotlivými uzly probíhá
+která je realizována pomocí hashmapy a umožňuje zápis osmi prvků klíč - hodnota. Veškerá komunikace mezi jednotlivými uzly probíhá
 pomocí JMS, která je zprovozněna v clusteru.
 
 ## Jak práci spustit 🔧
@@ -39,7 +39,7 @@ v kódu aplikace.
 ## Popis základních funckcionalit ⚙️
 **Co si pamatují uzly?**
 
-Každý uzel si pamatuje svoje ID, které je odvozeno z posledních devíti čísel IP adresy, nebo případně může být nastaveno argumentem z příkazového řádku. Dále každý uzel má svůj dataStore, což 
+Každý uzel si pamatuje svoje ID, které je odvozeno z posledních devíti čísel IP adresy, nebo případně může být nastaveno argumentem z příkazové řádky. Dále každý uzel má svůj dataStore, což 
 je hashtable, do které si na základě instrukcí zapisuje hodnoty. Také si uzel pamatuje potřebné proměnné pro implementaci Ri-Ag algoritmu, tedy MyRq, MaxRq, Req, RpCnt. Doplňkově si každý uzel po žádosti o zapsání
 zapamatuje klíč na který má zapsat hodnotu a také zvolenou hondotu k zápisu. Každý uzel si také udržuje další proměnné jako je timer a rebuild. Pro napravení topologie.
 
@@ -65,10 +65,10 @@ Co přesně tím mám na mysli znázorním během prezentace, kde však doufám,
 Algoritmus se spouští pokaždé, když od "žadatele" (publisheru) přijde zpráva o zápis do kritické sekce.
 
 ## Funkční dotazy ❓
-Během testování jsem zkoušel připojit mnoho uzlů a následně je odpojovat.
+Během testování jsem zkoušel připojit více než 5 uzlů a následně je odpojovat.
 Odpojoval jsem uzly až do doby než zbyl pouze jeden připojený uzel. Uspořádání požadavků
 jsem kontroloval na základě časových údajů zpráv a potvrzovacích zpráv v algoritmu Ri-Ag.
 
 Pomalejší odesílání zpráv jsem zkoušel nastavovat na zpoždění max 500 ms. V případě takového nastavení
-je zřejmé jak je celý algoritmus silně zpomalený.
+je zřejmé, jak je celý algoritmus silně zpomalený.
 
