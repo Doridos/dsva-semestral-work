@@ -1,4 +1,4 @@
-# LE - Ri-Ag delay - Java JMS - shared variable - Semestrální práce pro předmět B2M32DSVA
+# ME - Ri-Ag delay - Java JMS - shared variable - Semestrální práce pro předmět B2M32DSVA
 
 ## Autor 👨‍💻
 Vladyslav Babyč
